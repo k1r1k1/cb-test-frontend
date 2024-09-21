@@ -1,0 +1,6 @@
+export const HOME = '/'
+export const GHOME = 'cb-test-frontend'
+export const CLIENTS = '/clients'
+export const TRANSACTIONS = '/transactions'
+export const INFO = '/info'
+export const LOGIN = '/login'
