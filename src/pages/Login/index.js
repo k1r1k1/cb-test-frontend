@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './styles.scss'
 import { UserContext } from 'contexts/user'
-import { useLogIn } from 'hooks/user'
+import { useLogIn, useRegister } from 'hooks/user'
+import { isLoginFieldError, isPasswordFieldError, LoginErrorMessage, PasswordErrorMessage } from './errorMessages'
+import Swal from 'sweetalert2'
 
 const MainPage = () => {
   const [isRegistering, setIsRegistering] = useState()
@@ -10,12 +12,25 @@ const MainPage = () => {
   const [showPassword, handleShowPassword] = useState(false)
 
   const { setUser } = useContext(UserContext)
-  const { loginData, loginError, loginLoading, logIn } = useLogIn({ login: loginState, password: passwordState })
+  const {
+    loginData,
+    loginError,
+    loginLoading,
+    logIn
+  } = useLogIn({
+    login: loginState,
+    password: passwordState
+  })
 
-
-  const handleRegUser = () => {
-    console.log('reg', { loginState, passwordState })
-  }
+  const {
+    regData,
+    regError,
+    regLoading,
+    register
+  } = useRegister({
+    login: loginState,
+    password: passwordState
+  })
 
   useEffect(() => {
     if (loginData) {
@@ -24,10 +39,22 @@ const MainPage = () => {
     }
   }, [loginData, setUser])
 
+  useEffect(() => {
+    if (regData) {
+      setIsRegistering(false)
+      Swal.fire({
+        title: 'Success',
+        text: 'Now you can use your login and password',
+        icon: 'success',
+        timer: 2500
+      })
+    }
+  }, [regData])
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
 
-      <div className="card">
+      <div className="card card-login">
         <div className="card-body">
           <h5 className="card-title">{isRegistering ? 'Register' : 'Login'}</h5>
           <div>
@@ -36,26 +63,47 @@ const MainPage = () => {
               <label className="form-label">Email address</label>
               <input
                 type="email"
-                className={`form-control ${loginError && loginError.message === 'User not found' && 'is-invalid'}`}
+                className={`form-control +
+                  ${isLoginFieldError({
+                    isRegistering,
+                    loginError,
+                    regError
+                  }) &&
+                  'is-invalid'}`}
                 value={loginState}
                 onChange={({ target }) => setLogin(target.value)}
               />
-              {loginError && loginError.message === 'User not found' && (<div className="form-text text-danger">User not found</div>)}
+              <LoginErrorMessage
+                {...{ isRegistering, loginError, regError }}
+              />
             </div>
 
             <div className="mb-3">
               <label className="form-label">Password</label>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className={`form-control ${loginError && loginError.message === 'Incorrect password' && 'is-invalid'}`}
+                className={`form-control +
+                  ${isPasswordFieldError({
+                    isRegistering,
+                    loginError,
+                    regError
+                  }) &&
+                  'is-invalid'}`}
                 value={passwordState}
                 onChange={({ target }) => setPassword(target.value)}
               />
-              {loginError && loginError.message === 'Incorrect password' && (<div className="form-text text-danger">Incorrect password</div>)}
+              <PasswordErrorMessage
+                {...{ isRegistering, loginError, regError }}
+              />
             </div>
 
             <div className="mb-3 form-check">
-              <input type="checkbox" className="form-check-input" value={showPassword} onChange={() => handleShowPassword(!showPassword)} />
+              <input
+                type="checkbox"
+                className="form-check-input"
+                value={showPassword}
+                onChange={() => handleShowPassword(!showPassword)}
+              />
               <label className="form-check-label">Show password</label>
             </div>
 
@@ -63,8 +111,8 @@ const MainPage = () => {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={isRegistering ? handleRegUser : logIn}
-                disabled={loginLoading}
+                onClick={isRegistering ? register : logIn}
+                disabled={loginLoading || regLoading}
               >
                 {isRegistering ? 'Register' : 'Login'}
               </button>
@@ -74,8 +122,8 @@ const MainPage = () => {
                 className="login-mode-button"
                 onClick={() =>
                   setIsRegistering(!isRegistering)}
-                >
-                  {isRegistering ? 'Login existing account' : 'Create new account'}
+              >
+                {isRegistering ? 'Login existing account' : 'Create new account'}
               </button>
             </div>
 

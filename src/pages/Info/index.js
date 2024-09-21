@@ -5,7 +5,7 @@ const InfoPage = () => {
   return (
     <div>
       <Nav />
-      <h1>Clients page</h1>
+      <h1>Info page</h1>
     </div>
   )
 }

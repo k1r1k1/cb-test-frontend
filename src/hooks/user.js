@@ -3,9 +3,9 @@ import axios from 'axios'
 
 export const useUser = () => {
   const token = localStorage.getItem('token')
-  const [data, setData] = useState()
+  const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState()
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetch('http://localhost:8081/user', {
@@ -31,9 +31,9 @@ export const useUser = () => {
 }
 
 export const useLogIn = ({ login, password }) => {
-  const [data, setData] = useState()
-  const [loading, setLoading] = useState()
-  const [error, setError] = useState()
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const logIn = () => {
     setLoading(true)
@@ -57,5 +57,35 @@ export const useLogIn = ({ login, password }) => {
     loginLoading: loading,
     loginError: error,
     logIn
+  }
+}
+
+export const useRegister = ({ login, password }) => {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const register = () => {
+    setLoading(true)
+    setError(null)
+    setData(null)
+    axios({
+      url: 'http://localhost:8081/register',
+      method: 'POST',
+      data: {
+        username: login,
+        password
+      },
+    })
+    .then(res => setData(res.data))
+    .catch(({ response }) => setError({ code: response.status, message: response.data?.message }))
+    .finally(() => setLoading(false))
+  }
+
+  return {
+    regData: data,
+    regLoading: loading,
+    regError: error,
+    register
   }
 }
