@@ -1,6 +1,9 @@
-import { useRemoveInfo } from 'hooks/info'
+import { useFormik } from 'formik'
+import { useUpdateInfo } from 'hooks/info'
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
+
+import validate from './validation'
 
 const InfoTableItem = ({ item, refetch }) => {
   const {
@@ -11,76 +14,125 @@ const InfoTableItem = ({ item, refetch }) => {
   } = item
   const [isEditing, setIsEditing] = useState(false)
 
-  const deleteItemCallback = () => {
-    Swal.fire('Deleted!', '', 'success');
-    refetch()
-  }
+  // const deleteItemCallback = () => {
+  //   Swal.fire('Deleted!', '', 'success');
+  //   refetch()
+  // }
 
-  const { removeLoading, remove } = useRemoveInfo(deleteItemCallback)
+  // const { removeLoading, remove } = useRemoveInfo(deleteItemCallback)
 
-  const handleRemove = (id) => {
-    Swal.fire({
-      title: 'Do you want to remove item?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      denyButtonText: 'Cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        remove(id)
-      }
-    });
-  }
+  // const handleRemove = (id) => {
+  //   Swal.fire({
+  //     title: 'Do you want to remove item?',
+  //     icon: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Delete',
+  //     denyButtonText: 'Cancel'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       remove(id)
+  //     }
+  //   })
+  // }
 
-  return (
+  const { update, updateLoading } = useUpdateInfo(refetch)
+
+  const {
+    values,
+    errors,
+    handleSubmit,
+    handleChange
+  } = useFormik({
+    initialValues: {
+      id,
+      name,
+      description,
+      data,
+    },
+    validate,
+    onSubmit: values => {
+      Swal.fire({
+        title: 'Do you want to Save item?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setIsEditing(false)
+          update(values)
+        }
+      })
+    },
+  });
+
+  return isEditing ? (
+    <tr>
+      <td colSpan="5">
+      <form className="info-table-form" onSubmit={handleSubmit}>
+        <span>{id}</span>
+        <div className="flex-1">
+          <input
+            type="text"
+            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+            value={values.name}
+            onChange={handleChange}
+            name="name"
+          />
+          {errors.name ? <label className="invalid-feedback">{errors.name}</label> : null}
+        </div>
+        <div className="flex-1">
+          <input
+            type="text"
+            className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+            value={values.description}
+            onChange={handleChange}
+            name="description"
+          />
+          {errors.description ? <label className="invalid-feedback">{errors.description}</label> : null}
+        </div>
+        <div className="flex-3">
+          <input
+            type="text"
+            className={`form-control ${errors.data ? 'is-invalid' : ''}`}
+            value={values.data}
+            onChange={handleChange}
+            name="data"
+          />
+          {errors.data ? <label className="invalid-feedback">{errors.data}</label> : null}
+        </div>
+        <div className="info-table-row-actions">
+          <button className="btn btn-success" type="submit" disabled={updateLoading}>Save</button>
+          <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
+        </div>
+      </form>
+      </td>
+    </tr>
+  ) : (
     <tr>
       <td>{id}</td>
+      <td>{name}</td>
+      <td>{description}</td>
+      <td>{data}</td>
       <td>
-        {
-          isEditing ?
-            (<input type="text" className="form-control" value={name} />) :
-            name
-        }
+        <div className="d-flex justify-content-around">
+          <button
+            className="btn btn-warning"
+            type="button"
+            onClick={() => setIsEditing(true)}
+          >
+            Edit
+          </button>
+          {/* <button
+            className="btn btn-danger"
+            disabled={removeLoading}
+            onClick={() => handleRemove(id)}
+          >
+            Remove
+          </button> */}
+        </div>
       </td>
-      <td>
-        {
-          isEditing ?
-            (<input type="text" className="form-control" value={description} />) :
-            description
-        }
-      </td>
-      <td>
-        {
-          isEditing ?
-            (<input type="text" className="form-control" value={data} />) :
-            data
-        }
-      </td>
-      <td>
-        {
-          isEditing ? (
-            <button className="btn btn-success" onClick={() => setIsEditing(false)}>Save</button>
-          ) : (
-            <div className="d-flex justify-content-around">
-              <button
-                className="btn btn-secondary"
-                type="button"
-                onClick={() => setIsEditing(true)}
-              >
-                Edit
-              </button>
-              <button
-                className="btn btn-danger"
-                disabled={removeLoading}
-                onClick={() => handleRemove(id)}
-              >
-                Remove
-              </button>
-            </div>
-          )
-        }
-      </td>
-    </tr >
+    </tr>
   )
 }
 
