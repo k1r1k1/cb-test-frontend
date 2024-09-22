@@ -4,10 +4,13 @@ import axios from 'axios'
 export const useUser = () => {
   const token = localStorage.getItem('token')
   const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    setLoading(true)
+    setData(null)
+    setError(null)
     fetch('http://localhost:8081/user', {
       method: 'GET',
       body: undefined,
@@ -27,7 +30,6 @@ export const useUser = () => {
     error,
     setUser: setData
   }
-
 }
 
 export const useLogIn = ({ login, password }) => {
@@ -78,7 +80,7 @@ export const useRegister = ({ login, password }) => {
       },
     })
     .then(res => setData(res.data))
-    .catch(({ response }) => setError({ code: response.status, message: response.data?.message }))
+    .catch(({ response }) => setError({ code: response?.status, message: response?.data?.message }))
     .finally(() => setLoading(false))
   }
 

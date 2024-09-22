@@ -5,7 +5,7 @@ import { UserContext } from 'contexts/user'
 
 const Nav = () => {
   const { pathname } = useLocation()
-  const { setUser } = useContext(UserContext)
+  const { setUser, data } = useContext(UserContext)
 
   const handleLogOut = () => {
     localStorage.removeItem('token')
@@ -37,7 +37,8 @@ const Nav = () => {
                 Account
               </Link>
               <ul className="dropdown-menu">
-                {/* <li><hr className="dropdown-divider" /></li> */}
+                <li><span className="dropdown-item" >{data?.username}</span></li>
+                <li><hr className="dropdown-divider" /></li>
                 <li>
                   <button type="button" className="dropdown-item" onClick={handleLogOut}>
                     Log out

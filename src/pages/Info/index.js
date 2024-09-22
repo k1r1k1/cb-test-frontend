@@ -1,11 +1,27 @@
+import Info from 'components/Info'
 import Nav from 'components/Nav'
+import { useInfo } from 'hooks/info'
 import React from 'react'
 
 const InfoPage = () => {
+  const {
+    bankInfo,
+    bankInfoError,
+    bankInfoLoading,
+    refetch
+  } = useInfo()
+
   return (
     <div>
       <Nav />
-      <h1>Info page</h1>
+      {!bankInfoLoading && bankInfo ? (<Info
+        {...{
+          refetch,
+          bankInfo,
+          bankInfoError,
+          bankInfoLoading
+        }}
+      />) : (<h1>Loading...</h1>)}
     </div>
   )
 }

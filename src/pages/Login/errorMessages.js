@@ -29,6 +29,6 @@ export const PasswordErrorMessage = ({ isRegistering, regError, loginError }) =>
 }
 
 export const isPasswordFieldError = ({ isRegistering, regError, loginError }) => {
-  if (isRegistering) return regError?.message?.indexOf('Password') !== -1
-  return loginError?.message?.indexOf('Password') !== -1 || loginError?.message === 'Incorrect password'
+  if (isRegistering) return !!regError && regError?.message?.indexOf('Password') !== -1
+  return !!loginError ? !!loginError?.message?.indexOf('Password') !== -1 : loginError?.message === 'Incorrect password'
 }
