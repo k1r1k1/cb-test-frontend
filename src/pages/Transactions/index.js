@@ -11,18 +11,22 @@ const TransactionsPage = () => {
     transactionsLoading
   } = useTransactions()
 
-  return !transactionsLoading ? (
+  return (
     <div>
       <Nav />
-      <TransactionsComponent
-        {...{
-          refetch,
-          transactionsData,
-          transactionsError
-        }}
-      />
+      {!transactionsLoading ?
+        (<TransactionsComponent
+          {...{
+            refetch,
+            transactionsData,
+            transactionsError
+          }}
+        />
+        ) : (
+          <h1>Loading</h1>
+        )}
     </div>
-  ) : (<h1>Loading</h1>)
+  )
 }
 
 export default TransactionsPage

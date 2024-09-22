@@ -24,7 +24,7 @@ const TransactionsComponent = ({
         <tbody>
           {transactionsData?.map((item) => (
             <TransactionItem
-              key={`bank-info-tr-${item.id}`}
+              key={`transactions-tr-${item.id}`}
               item={item}
             />
           ))}

@@ -14,27 +14,6 @@ const InfoTableItem = ({ item, refetch }) => {
   } = item
   const [isEditing, setIsEditing] = useState(false)
 
-  // const deleteItemCallback = () => {
-  //   Swal.fire('Deleted!', '', 'success');
-  //   refetch()
-  // }
-
-  // const { removeLoading, remove } = useRemoveInfo(deleteItemCallback)
-
-  // const handleRemove = (id) => {
-  //   Swal.fire({
-  //     title: 'Do you want to remove item?',
-  //     icon: 'question',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Delete',
-  //     denyButtonText: 'Cancel'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       remove(id)
-  //     }
-  //   })
-  // }
-
   const { update, updateLoading } = useUpdateInfo(refetch)
 
   const {
@@ -123,13 +102,6 @@ const InfoTableItem = ({ item, refetch }) => {
           >
             Edit
           </button>
-          {/* <button
-            className="btn btn-danger"
-            disabled={removeLoading}
-            onClick={() => handleRemove(id)}
-          >
-            Remove
-          </button> */}
         </div>
       </td>
     </tr>
