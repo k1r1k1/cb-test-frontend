@@ -14,12 +14,11 @@ const InfoPage = () => {
   return (
     <div>
       <Nav />
-      {!bankInfoLoading && bankInfo ? (<Info
+      {!bankInfoLoading ? (<Info
         {...{
           refetch,
           bankInfo,
-          bankInfoError,
-          bankInfoLoading
+          bankInfoError
         }}
       />) : (<h1>Loading...</h1>)}
     </div>

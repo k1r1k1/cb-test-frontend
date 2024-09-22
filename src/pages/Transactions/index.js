@@ -1,13 +1,28 @@
-import Nav from 'components/Nav'
 import React from 'react'
+import Nav from 'components/Nav'
+import TransactionsComponent from 'components/Transactions'
+import { useTransactions } from 'hooks/transactions'
 
 const TransactionsPage = () => {
-  return (
+  const {
+    refetch,
+    transactionsData,
+    transactionsError,
+    transactionsLoading
+  } = useTransactions()
+
+  return !transactionsLoading ? (
     <div>
       <Nav />
-      <h1>Transactions page</h1>
+      <TransactionsComponent
+        {...{
+          refetch,
+          transactionsData,
+          transactionsError
+        }}
+      />
     </div>
-  )
+  ) : (<h1>Loading</h1>)
 }
 
 export default TransactionsPage

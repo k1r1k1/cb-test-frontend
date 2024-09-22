@@ -97,7 +97,7 @@ export const useUpdateInfo = (callback) => {
       })
     })
     .catch(({ response }) => {
-      setError({ code: response.status, message: response.data?.message })
+      setError({ code: response?.status, message: response?.data?.message })
       Swal.fire({
         timer: 3000,
         toast: true,

@@ -2,8 +2,7 @@ import React from 'react'
 import InfoTableItem from './TableItem'
 import './styles.scss'
 
-const Info = ({ bankInfo, bankInfoError, bankInfoLoading, refetch }) => {
-
+const Info = ({ bankInfo, bankInfoError, refetch }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -16,13 +15,14 @@ const Info = ({ bankInfo, bankInfoError, bankInfoLoading, refetch }) => {
         </tr>
       </thead>
       <tbody>
-        {bankInfo.map((item) => (
+        {bankInfo?.map((item) => (
           <InfoTableItem
             key={`bank-info-tr-${item.id}`}
             item={item}
             refetch={refetch}
           />
         ))}
+        {bankInfoError && <div>Error</div>}
       </tbody>
     </table>
   )
