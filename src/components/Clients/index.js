@@ -1,12 +1,14 @@
 import React from 'react'
 import ClientsTableItem from './TableItem'
+import ButtonClient from 'components/ButtonClient'
 
 const Clients = ({ clientsData, refetch }) => {
   return (
-    <table className="table table-striped">
+    <div>
+      <table className="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">Passport #</th>
           <th scope="col">Last name</th>
           <th scope="col">First name</th>
           <th scope="col">Middle name</th>
@@ -24,6 +26,8 @@ const Clients = ({ clientsData, refetch }) => {
         ))}
       </tbody>
     </table>
+    <ButtonClient refetch={refetch} />
+    </div>
   )
 }
 

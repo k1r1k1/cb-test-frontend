@@ -82,7 +82,7 @@ const ClientsTableItem = ({ item, refetch }) => {
     <tr>
       <td colSpan="6">
       <form className="d-flex" onSubmit={handleSubmit}>
-        <span>{id}</span>
+        <span>{passport}</span>
         <div className="flex-1 mx-2">
           <input
             type="text"
@@ -130,7 +130,7 @@ const ClientsTableItem = ({ item, refetch }) => {
     </tr>
   ) : (
     <tr>
-      <td>{id}</td>
+      <td>{passport}</td>
       <td>{last_name}</td>
       <td>{first_name}</td>
       <td>{middle_name}</td>
