@@ -51,6 +51,7 @@ const ButtonAccount = ({ refetch, clients }) => {
             setFieldValue={setFieldValue}
             name="clientId"
             getItemString={getClientString}
+            getItemValue={(item) => item.id}
           />
           {errors.clientId ? <label className="invalid-feedback">{errors.clientId}</label> : null}
         </div>

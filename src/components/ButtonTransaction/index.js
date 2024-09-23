@@ -1,11 +1,13 @@
-import React from 'react'
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import React, { useEffect } from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { useCreateTransaction } from 'hooks/transactions'
-import { useFormik } from 'formik';
-import validate from './validation';
+import { useFormik } from 'formik'
+import validate from './validation'
+import SearchInput from 'components/SearchInput'
+import { useAccounts } from 'hooks/accounts'
 
-const ButtonTransaction = ({ transactionsData, refetch }) => {
+const ButtonTransaction = ({ refetch }) => {
   const SwalReact = withReactContent(Swal)
   const { createTransaction, createTransactionLoading } = useCreateTransaction(refetch)
 
@@ -14,11 +16,13 @@ const ButtonTransaction = ({ transactionsData, refetch }) => {
       values,
       errors,
       handleSubmit,
-      handleChange
+      handleChange,
+      setFieldValue
     } = useFormik({
       initialValues: {
         initiator: '',
         recipient: '',
+        accountAmount: '',
         amount: '',
         memo: ''
       },
@@ -28,16 +32,29 @@ const ButtonTransaction = ({ transactionsData, refetch }) => {
       },
     })
 
+    const { accountsData } = useAccounts(values.initiator)
+    const pickedInitiatorAccount = values.initiator &&
+      accountsData?.length &&
+      accountsData[0]
+
+    useEffect(() => {
+      if (pickedInitiatorAccount?.value) {
+        setFieldValue('accountAmount', pickedInitiatorAccount.value)
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pickedInitiatorAccount])
+
     return (
       <form className="info-table-form flex-column text-start" onSubmit={handleSubmit}>
         <div className="mt-3">
-          <label className="form-label">Initiator account</label>
-          <input
-            type="text"
-            className={`form-control ${errors.initiator ? 'is-invalid' : ''}`}
-            value={values.initiator}
-            onChange={handleChange}
+          <label className="form-label">Pick initiator bank account</label>
+          <SearchInput
+            items={accountsData}
+            isInvalid={errors.initiator}
+            setFieldValue={setFieldValue}
             name="initiator"
+            getItemString={(item) => item.name}
+            getItemValue={(item) => item.name}
           />
           {errors.initiator ? <label className="invalid-feedback">{errors.initiator}</label> : null}
         </div>
@@ -60,6 +77,7 @@ const ButtonTransaction = ({ transactionsData, refetch }) => {
             value={values.amount}
             onChange={handleChange}
             name="amount"
+            disabled={!values.initiator?.length}
           />
           {errors.amount ? <label className="invalid-feedback">{errors.amount}</label> : null}
         </div>

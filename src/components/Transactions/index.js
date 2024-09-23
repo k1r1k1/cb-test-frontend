@@ -31,7 +31,7 @@ const TransactionsComponent = ({
           {transactionsError && <div>Error</div>}
         </tbody>
       </table>
-      <ButtonTransaction {...{ transactionsData, refetch }} />
+      <ButtonTransaction {...{ refetch }} />
     </div>
   )
 }

@@ -125,7 +125,7 @@ const AccountsTableItem = ({ item, refetch }) => {
           type="button"
           onClick={() => setIsEditing(true)}
         >
-          Balance
+          Update
         </button>
         <button
           className="btn btn-danger"

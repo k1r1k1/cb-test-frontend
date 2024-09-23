@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import './styles.scss'
 
-const SearchInput = ({ items, isInvalid, setFieldValue, name, getItemString }) => {
+const SearchInput = ({
+  items, isInvalid, setFieldValue, name,
+  getItemString, getItemValue
+}) => {
   const [foundItems, setItems] = useState()
   const [inputFocused, setFocused] = useState(false)
   const [inputState, setInputState] = useState('')
@@ -15,15 +18,15 @@ const SearchInput = ({ items, isInvalid, setFieldValue, name, getItemString }) =
         JSON.stringify(
           Object.values(item)
         )
-        .toLowerCase()
-        .indexOf(target.value?.toLowerCase()) !==-1
+          .toLowerCase()
+          .indexOf(target.value?.toLowerCase()) !== -1
       )
     )
   })
 
   const handleItemClick = (item) => {
     setInputState(getItemString(item))
-    setFieldValue(name, item.id)
+    setFieldValue(name, getItemValue(item))
   }
 
   return (

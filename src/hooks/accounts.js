@@ -24,7 +24,7 @@ export const useAccounts = (name) => {
       .catch(err => setError(err))
       .finally(() => setLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload])
+  }, [reload, name])
 
   return {
     accountsData: data,
