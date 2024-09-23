@@ -7,7 +7,7 @@ import ClientView from 'components/ClientView'
 import validate from './validation'
 import { useRemoveAccount, useUpdateAccount } from 'hooks/accounts'
 
-const AccountsTableItem = ({ item, refetch, clients }) => {
+const AccountsTableItem = ({ item, refetch }) => {
   const {
     id,
     client_id,
@@ -62,16 +62,15 @@ const AccountsTableItem = ({ item, refetch, clients }) => {
     }
   })
 
-  const handleClientInfo = () => SwalReact.fire({
-    html: (
-      <ClientView
-        {...clients.find((client) =>
-          client.id === client_id)}
-      />),
-    title: 'Client info',
-    showConfirmButton: false,
-    showCloseButton: true
-  })
+  const handleClientInfo = () => {
+    SwalReact.fire({
+      html: (
+        <ClientView id={client_id} />),
+      title: 'Client info',
+      showConfirmButton: false,
+      showCloseButton: true
+    })
+  }
 
   return isEditing ? (
     <tr>

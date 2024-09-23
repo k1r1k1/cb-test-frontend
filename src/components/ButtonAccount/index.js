@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import validate from './validation'
 import { useAddAccount } from 'hooks/accounts';
 import SearchInput from 'components/SearchInput';
+import { getClientString } from 'utils';
 
 const ButtonAccount = ({ refetch, clients }) => {
   const SwalReact = withReactContent(Swal)
@@ -49,8 +50,7 @@ const ButtonAccount = ({ refetch, clients }) => {
             isInvalid={errors.clientId}
             setFieldValue={setFieldValue}
             name="clientId"
-            getItemString={(item) =>
-              `${item.last_name} ${item.first_name} ${item.middle_name} ${item.passport}`}
+            getItemString={getClientString}
           />
           {errors.clientId ? <label className="invalid-feedback">{errors.clientId}</label> : null}
         </div>

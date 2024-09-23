@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 
-export const useAccounts = () => {
+export const useAccounts = (name) => {
   const token = localStorage.getItem('token')
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -13,7 +13,7 @@ export const useAccounts = () => {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch('http://localhost:8081/accounts', {
+    fetch(`http://localhost:8081/accounts/${name ? encodeURI(name) : ''}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

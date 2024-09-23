@@ -21,7 +21,6 @@ const Accounts = ({ accountsData, refetch, clientsData }) => {
             key={`clients-tr-${item.id}`}
             item={item}
             refetch={refetch}
-            clients={clientsData}
           />
         ))}
       </tbody>

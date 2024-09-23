@@ -1,48 +1,44 @@
+import { useClients } from 'hooks/clients'
 import React from 'react'
 
-const ClientView = (props) => {
-  const {
-    id,
-    last_name,
-    first_name,
-    middle_name,
-    passport,
-    birth_date,
-    reg_date
-  } = props
+const ClientView = ({ id }) => {
+  const { clientsData, clientsError, clientsLoading } = useClients(id)
 
-  return (
-    <div className="d-flex flex-column text-start">
-      <div className="p-1 text-secondary">
-        id:
-        <span className="text-black mx-1">{id}</span>
+  return !clientsLoading && clientsData ? (
+    <>
+      <div className="d-flex flex-column text-start">
+        <div className="p-1 text-secondary">
+          id:
+          <span className="text-black mx-1">{id}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          Last name:
+          <span className="text-black mx-1">{clientsData[0].last_name}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          First name:
+          <span className="text-black mx-1">{clientsData[0].first_name}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          Middle name:
+          <span className="text-black mx-1">{clientsData[0].middle_name}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          Passport:
+          <span className="text-black mx-1">{clientsData[0].passport}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          Birth date:
+          <span className="text-black mx-1">{new Date(clientsData[0].birth_date).toLocaleDateString('ru')}</span>
+        </div>
+        <div className="p-1 text-secondary">
+          Reg date:
+          <span className="text-black mx-1">{new Date(clientsData[0].reg_date).toLocaleDateString('ru')}</span>
+        </div>
       </div>
-      <div className="p-1 text-secondary">
-        Last name:
-        <span className="text-black mx-1">{last_name}</span>
-      </div>
-      <div className="p-1 text-secondary">
-        First name:
-        <span className="text-black mx-1">{first_name}</span>
-      </div>
-      <div className="p-1 text-secondary">
-        Middle name:
-        <span className="text-black mx-1">{middle_name}</span>
-      </div>
-      <div className="p-1 text-secondary">
-        Passport:
-        <span className="text-black mx-1">{passport}</span>
-      </div>
-      <div className="p-1 text-secondary">
-        Birth date:
-        <span className="text-black mx-1">{new Date(birth_date).toLocaleDateString('ru')}</span>
-      </div>
-      <div className="p-1 text-secondary">
-        Reg date:
-        <span className="text-black mx-1">{new Date(reg_date).toLocaleDateString('ru')}</span>
-      </div>
-    </div>
-  )
+      {clientsError && <div>Error</div>}
+    </>
+  ) : (<h1>Loading...</h1>)
 }
 
 export default ClientView

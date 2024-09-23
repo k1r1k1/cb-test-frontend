@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 
-export const useClients = () => {
+export const useClients = (id) => {
   const token = localStorage.getItem('token')
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -13,7 +13,7 @@ export const useClients = () => {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch('http://localhost:8081/clients', {
+    fetch(`http://localhost:8081/clients/${id ? id : ''}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -24,7 +24,7 @@ export const useClients = () => {
       .catch(err => setError(err))
       .finally(() => setLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload])
+  }, [reload, id])
 
   return {
     clientsData: data,
