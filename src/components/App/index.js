@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { HOME, CLIENTS, INFO, TRANSACTIONS, LOGIN } from 'constants/routes'
 import Accounts from 'pages/Accounts'
 import LoginPage from 'pages/Login'
@@ -14,7 +14,7 @@ function Router() {
 
   if (!loading && data) return (
     <Routes>
-      <Route path={HOME} element={<Accounts />} />
+      <Route exact path={HOME} element={<Accounts />} />
       <Route path={LOGIN} element={<LoginPage />} />
       <Route path={CLIENTS} element={<ClientsPage />} />
       <Route path={INFO} element={<InfoPage />} />
@@ -32,9 +32,9 @@ function App() {
     <UserContext.Provider
       value={user}
     >
-      <BrowserRouter>
+      <HashRouter>
         <Router />
-      </BrowserRouter>
+      </HashRouter>
     </UserContext.Provider>
   );
 }
