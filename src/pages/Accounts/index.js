@@ -1,11 +1,18 @@
+import Accounts from 'components/Accounts'
 import Nav from 'components/Nav'
+import { useAccounts } from 'hooks/accounts'
 import React from 'react'
 
 const MainPage = () => {
+  const accounts = useAccounts()
   return (
     <div>
       <Nav />
-      <h1>Accounts page</h1>
+      {!accounts?.accountsLoading ?
+        (<Accounts {...accounts} />) :
+        (<h1>Loading...</h1>)
+      }
+      {accounts.accountsError && (<h1>Error</h1>)}
     </div>
   )
 }

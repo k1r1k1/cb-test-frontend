@@ -16,9 +16,9 @@ const validate = values => {
     errors.amount = 'Required'
   } else if (values.amount.length > 12) {
     errors.amount = 'Must be 12 characters or less'
-  } else if (typeof parseFloat(values.amount) !== 'number') {
+  } else if (!/^\d+\.\d+$/.test(values.amount)) {
     errors.amount = 'Value must be a number'
-  } else if (parseFloat(values.amount) <= 0) {
+  } else if (Number(values.amount) <= 0) {
     errors.amount = 'Value must be greater than 0'
   }
 

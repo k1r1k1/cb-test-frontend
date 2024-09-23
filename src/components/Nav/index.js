@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { CLIENTS, HOME, INFO, TRANSACTIONS,  } from 'constants/routes'
+import { CLIENTS, HOME, INFO, TRANSACTIONS } from 'constants/routes'
 import { UserContext } from 'contexts/user'
 
 const Nav = () => {
@@ -15,7 +15,7 @@ const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <Link className="navbar-brand" to={HOME}>Accounts</Link>
+        <Link className={`navbar-brand ${pathname === HOME ? 'text-black' : ' text-secondary'}`} to={HOME}>Accounts</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
