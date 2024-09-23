@@ -40,7 +40,7 @@ const SearchInput = ({
         onBlur={() => setTimeout(() => setFocused(false), 80)}
       />
       {(inputFocused && foundItems?.length ?
-        (<div className="search-list">
+        (<div className="search-list" data-testid="search-list">
           <table className="table table-striped">
             <tbody>
               {foundItems.map((item, index) => (

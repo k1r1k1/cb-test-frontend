@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import validate from './validation'
 import DatePicker from 'react-datepicker'
 import { useAddClient } from 'hooks/clients'
+import FormInput from 'components/FormInput';
 
 const ButtonClient = ({ refetch }) => {
   const SwalReact = withReactContent(Swal)
@@ -37,39 +38,27 @@ const ButtonClient = ({ refetch }) => {
 
     return (
       <form className="flex-column text-start" onSubmit={handleSubmit}>
-        <div className="mt-3">
-          <label className="form-label">Last name</label>
-          <input
-            type="text"
-            className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
-            value={values.lastName}
-            onChange={handleChange}
-            name="lastName"
-          />
-          {errors.lastName ? <label className="invalid-feedback">{errors.lastName}</label> : null}
-        </div>
-        <div className="mt-3">
-          <label className="form-label">First name</label>
-          <input
-            type="text"
-            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-            value={values.name}
-            onChange={handleChange}
-            name="name"
-          />
-          {errors.name ? <label className="invalid-feedback">{errors.name}</label> : null}
-        </div>
-        <div className="mt-3">
-          <label className="form-label">Middle name</label>
-          <input
-            type="text"
-            className={`form-control ${errors.middleName ? 'is-invalid' : ''}`}
-            value={values.middleName}
-            onChange={handleChange}
-            name="middleName"
-          />
-          {errors.middleName ? <label className="invalid-feedback">{errors.middleName}</label> : null}
-        </div>
+        <FormInput
+          error={errors.lastName}
+          formLabel="Last name"
+          handleChange={handleChange}
+          name="lastName"
+          value={values.lastName}
+        />
+        <FormInput
+          error={errors.name}
+          formLabel="First name"
+          handleChange={handleChange}
+          name="name"
+          value={values.name}
+        />
+        <FormInput
+          error={errors.middleName}
+          formLabel="Middle name"
+          handleChange={handleChange}
+          name="middleName"
+          value={values.middleName}
+        />
         <div className="mt-3 d-flex flex-column">
           <label className="form-label">Birth date</label>
           <DatePicker
@@ -80,17 +69,13 @@ const ButtonClient = ({ refetch }) => {
           />
           {errors.birthDate ? <label className="invalid-feedback">{errors.birthDate}</label> : null}
         </div>
-        <div className="mt-3">
-          <label className="form-label">Passport</label>
-          <input
-            type="text"
-            className={`form-control ${errors.passport ? 'is-invalid' : ''}`}
-            value={values.passport}
-            onChange={handleChange}
-            name="passport"
-          />
-          {errors.passport ? <label className="invalid-feedback">{errors.passport}</label> : null}
-        </div>
+        <FormInput
+          error={errors.passport}
+          formLabel="Passport"
+          handleChange={handleChange}
+          name="passport"
+          value={values.passport}
+        />
         <div className="info-table-row-actions mt-5">
           <button className="btn btn-success" type="submit" disabled={clientLoading}>Save</button>
         </div>

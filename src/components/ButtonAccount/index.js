@@ -6,6 +6,7 @@ import validate from './validation'
 import { useAddAccount } from 'hooks/accounts';
 import SearchInput from 'components/SearchInput';
 import { getClientString } from 'utils';
+import FormInput from 'components/FormInput';
 
 const ButtonAccount = ({ refetch, clients }) => {
   const SwalReact = withReactContent(Swal)
@@ -32,17 +33,13 @@ const ButtonAccount = ({ refetch, clients }) => {
 
     return (
       <form className="flex-column text-start" onSubmit={handleSubmit}>
-        <div className="mt-3">
-          <label className="form-label">Account name</label>
-          <input
-            type="text"
-            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-            value={values.name}
-            onChange={handleChange}
-            name="name"
-          />
-          {errors.name ? <label className="invalid-feedback">{errors.name}</label> : null}
-        </div>
+        <FormInput
+          error={errors.name}
+          formLabel="Account name"
+          handleChange={handleChange}
+          name="name"
+          value={values.name}
+        />
         <div className="mt-3">
           <label className="form-label">Pick owner</label>
           <SearchInput
@@ -55,17 +52,13 @@ const ButtonAccount = ({ refetch, clients }) => {
           />
           {errors.clientId ? <label className="invalid-feedback">{errors.clientId}</label> : null}
         </div>
-        <div className="mt-3">
-          <label className="form-label">Balance</label>
-          <input
-            type="text"
-            className={`form-control ${errors.value ? 'is-invalid' : ''}`}
-            value={values.value}
-            onChange={handleChange}
-            name="value"
-          />
-          {errors.value ? <label className="invalid-feedback">{errors.value}</label> : null}
-        </div>
+        <FormInput
+          error={errors.value}
+          formLabel="Balance"
+          handleChange={handleChange}
+          name="value"
+          value={values.value}
+        />
         <div className="info-table-row-actions mt-5">
           <button className="btn btn-success" type="submit" disabled={accountLoading}>Save</button>
         </div>

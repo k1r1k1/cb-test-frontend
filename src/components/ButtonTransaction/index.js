@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import validate from './validation'
 import SearchInput from 'components/SearchInput'
 import { useAccounts } from 'hooks/accounts'
+import FormInput from 'components/FormInput'
 
 const ButtonTransaction = ({ refetch }) => {
   const SwalReact = withReactContent(Swal)
@@ -58,40 +59,27 @@ const ButtonTransaction = ({ refetch }) => {
           />
           {errors.initiator ? <label className="invalid-feedback">{errors.initiator}</label> : null}
         </div>
-        <div className="mt-3">
-          <label className="form-label">Recipient account</label>
-          <input
-            type="text"
-            className={`form-control ${errors.recipient ? 'is-invalid' : ''}`}
-            value={values.recipient}
-            onChange={handleChange}
-            name="recipient"
-          />
-          {errors.recipient ? <label className="invalid-feedback">{errors.recipient}</label> : null}
-        </div>
-        <div className="mt-3">
-          <label className="form-label">Amount</label>
-          <input
-            type="text"
-            className={`form-control ${errors.amount ? 'is-invalid' : ''}`}
-            value={values.amount}
-            onChange={handleChange}
-            name="amount"
-            disabled={!values.initiator?.length}
-          />
-          {errors.amount ? <label className="invalid-feedback">{errors.amount}</label> : null}
-        </div>
-        <div className="mt-3">
-          <label className="form-label">Memo</label>
-          <input
-            type="text"
-            className={`form-control ${errors.memo ? 'is-invalid' : ''}`}
-            value={values.memo}
-            onChange={handleChange}
-            name="memo"
-          />
-          {errors.memo ? <label className="invalid-feedback">{errors.memo}</label> : null}
-        </div>
+        <FormInput
+          error={errors.recipient}
+          formLabel="Recipient account"
+          handleChange={handleChange}
+          name="recipient"
+          value={values.recipient}
+        />
+        <FormInput
+          error={errors.amount}
+          formLabel="Amount"
+          handleChange={handleChange}
+          name="amount"
+          value={values.amount}
+        />
+        <FormInput
+          error={errors.memo}
+          formLabel="Memo"
+          handleChange={handleChange}
+          name="memo"
+          value={values.memo}
+        />
         <div className="info-table-row-actions mt-5">
           <button className="btn btn-success" type="submit" disabled={createTransactionLoading}>Save</button>
         </div>
