@@ -94,7 +94,7 @@ const InfoTableItem = ({ item, refetch }) => {
       <td>{description}</td>
       <td>{data}</td>
       <td>
-        <div className="d-flex justify-content-around">
+        <div className="">
           <button
             className="btn btn-warning"
             type="button"

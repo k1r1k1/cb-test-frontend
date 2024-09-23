@@ -35,8 +35,6 @@ const ButtonClient = ({ refetch }) => {
       setFieldValue('birthDate', new Date(new Date(date).setHours(3)).toISOString())
     }
 
-    console.log(values)
-
     return (
       <form className="flex-column text-start" onSubmit={handleSubmit}>
         <div className="mt-3">

@@ -136,7 +136,7 @@ const ClientsTableItem = ({ item, refetch }) => {
       <td>{middle_name}</td>
       <td>{new Date(birth_date).toLocaleDateString('ru')}</td>
       <td>
-        <div className="d-flex justify-content-around">
+        <div className="">
           <button
             className="btn btn-warning"
             type="button"
@@ -144,13 +144,6 @@ const ClientsTableItem = ({ item, refetch }) => {
           >
             Edit
           </button>
-          {/* <button
-            className="btn btn-danger"
-            disabled={removeLoading}
-            onClick={() => handleRemove(id)}
-          >
-            Remove
-          </button> */}
         </div>
       </td>
     </tr>

@@ -1,0 +1,16 @@
+.search-input {
+  position: relative;
+
+  .search-list {
+    position: absolute;
+    width: 100%;
+    border: 1px solid #d3d3d3;
+    border-radius: 6px;
+    max-height: 175px;
+    margin-top: 2px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #fff;
+  }
+
+}
