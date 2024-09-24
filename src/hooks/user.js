@@ -50,7 +50,7 @@ export const useLogIn = ({ login, password }) => {
       },
     })
     .then(res => setData(res.data))
-    .catch(({ response }) => setError({ code: response.status, message: response.data?.message }))
+    .catch(({ response }) => setError({ code: response?.status, message: response?.data?.message || 'error' }))
     .finally(() => setLoading(false))
   }
 
