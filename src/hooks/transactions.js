@@ -15,7 +15,7 @@ export const useTransactions = () => {
     setData(null)
     axios({
       method: 'GET',
-      url: 'http://localhost:8081/transactions',
+      url: 'http://185.244.50.201:8081/transactions',
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -45,7 +45,7 @@ export const useCreateTransaction = (callback) => {
       setError(null)
       setData(null)
       axios({
-        url: 'http://localhost:8081/transactions',
+        url: 'http://185.244.50.201:8081/transactions',
         method: 'POST',
         data,
         headers: {

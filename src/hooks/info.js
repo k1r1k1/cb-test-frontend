@@ -13,7 +13,7 @@ export const useInfo = () => {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch('http://localhost:8081/info', {
+    fetch('http://185.244.50.201:8081/info', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export const useRemoveInfo = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: `http://localhost:8081/info/${id}`,
+      url: `http://185.244.50.201:8081/info/${id}`,
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -78,7 +78,7 @@ export const useUpdateInfo = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/info',
+      url: 'http://185.244.50.201:8081/info',
       method: 'PUT',
       data,
       headers: {

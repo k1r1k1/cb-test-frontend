@@ -11,7 +11,7 @@ export const useUser = () => {
     setLoading(true)
     setData(null)
     setError(null)
-    fetch('http://localhost:8081/user', {
+    fetch('http://185.244.50.201:8081/user', {
       method: 'GET',
       body: undefined,
       headers: {
@@ -42,7 +42,7 @@ export const useLogIn = ({ login, password }) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/login',
+      url: 'http://185.244.50.201:8081/login',
       method: 'POST',
       data: {
         username: login,
@@ -72,7 +72,7 @@ export const useRegister = ({ login, password }) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/register',
+      url: 'http://185.244.50.201:8081/register',
       method: 'POST',
       data: {
         username: login,

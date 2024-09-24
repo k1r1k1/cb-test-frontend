@@ -13,7 +13,7 @@ export const useAccounts = (name) => {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch(`http://localhost:8081/accounts/${name ? encodeURI(name) : ''}`, {
+    fetch(`http://185.244.50.201:8081/accounts/${name ? encodeURI(name) : ''}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export const useAddAccount = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/accounts',
+      url: 'http://185.244.50.201:8081/accounts',
       method: 'POST',
       data,
       headers: {
@@ -99,7 +99,7 @@ export const useUpdateAccount = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/accounts',
+      url: 'http://185.244.50.201:8081/accounts',
       method: 'PUT',
       data,
       headers: {
@@ -153,7 +153,7 @@ export const useRemoveAccount = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: `http://localhost:8081/accounts/${id}`,
+      url: `http://185.244.50.201:8081/accounts/${id}`,
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

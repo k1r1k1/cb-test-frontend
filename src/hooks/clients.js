@@ -13,7 +13,7 @@ export const useClients = (id) => {
     setLoading(true)
     setError(null)
     setData(null)
-    fetch(`http://localhost:8081/clients/${id ? id : ''}`, {
+    fetch(`http://185.244.50.201:8081/clients/${id ? id : ''}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export const useAddClient = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/clients',
+      url: 'http://185.244.50.201:8081/clients',
       method: 'POST',
       data,
       headers: {
@@ -99,7 +99,7 @@ export const useUpdateClient = (callback) => {
     setError(null)
     setData(null)
     axios({
-      url: 'http://localhost:8081/clients',
+      url: 'http://185.244.50.201:8081/clients',
       method: 'PUT',
       data,
       headers: {
